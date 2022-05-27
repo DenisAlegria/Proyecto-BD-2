@@ -27,7 +27,7 @@ export class QuerysComponent implements OnInit {
     this.baseDeDatos.sql = 'SHOW TABLES;'
     this.querysService.obtenerTablas(this.baseDeDatos).subscribe(data => {
       let respuesta = data as any;
-      this.tablas = respuesta.ResultSet;
+      this.tablas = respuesta.resultset;
       console.log(this.tablas)
     });
   }
@@ -36,8 +36,18 @@ export class QuerysComponent implements OnInit {
     this.ejecucion.sql = ejecucion.sql;
     this.querysService.ejecutarQuery(this.ejecucion).subscribe(data => {
       let respuesta = data as any;
-      this.respuesta1 = respuesta.Status;
-      this.respuesta2 = JSON.stringify(respuesta.ResultSet);
+      this.respuesta1 = respuesta.status;
+
+      //validacion de errores y asignacion a respuestas
+      if(respuesta.error == ''){
+        this.respuesta2 = JSON.stringify(respuesta.resultset);
+        console.log(this.respuesta2);
+      }
+      if(respuesta.resultset == null){
+        this.respuesta2 = respuesta.error;
+        console.log(this.respuesta2);
+      }
+      //this.respuesta2 = JSON.stringify(respuesta.ResultSet);
       console.log(respuesta);
 
     });

@@ -1,35 +1,36 @@
 <div class="container">
-    <div class="row shadow-lg">
-        <div class="col-4">
-          <label>Tablas de Base de Datos</label>
-          <ul class="list-group p-1">
-            <li class="list-group-item" *ngFor="let tabla of tablas">{{tabla.Tables_in_testdb}}</li>
-          </ul>
+  <div class="row shadow-lg">
+    <div class="col-4">
+      <label>Tablas de Base de Datos</label>
+      <ul class="list-group p-1">
+        <li class="list-group-item" *ngFor="let tabla of tablas">{{tabla.Tables_in_testdb}}</li>
+      </ul>
+    </div>
+    <div class="col-5">
+      <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 550px"
+          autofocus [(ngModel)]="ejecucion.sql"></textarea>
+        <label for="floatingTextarea2">Ejecucion de QUERY</label>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="form-floating">
+        <textarea class="form-control text-center" placeholder="Leave a comment here" id="floatingTextarea3"
+          style="height: 550px" disabled>{{respuesta1}}</textarea>
+        <label for="floatingTextarea3">Respuesta BD</label>
+      </div>
+    </div>
+    <div class="row p-3">
+      <div class="col-10">
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea4" style="height: 200px"
+            disabled>{{respuesta2}}</textarea>
+          <label for="floatingTextarea4">Resultados</label>
         </div>
-        <div class="col-5">
-          <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-              style="height: 550px" autofocus [(ngModel)]="ejecucion.sql"></textarea>
-            <label for="floatingTextarea2">Ejecucion de QUERY</label>
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea3" style="height: 550px"
-              disabled>{{respuesta1}}</textarea>
-            <label for="floatingTextarea3">Respuesta BD</label>
-          </div>
-        </div>
-        <div class="row p-3">
-          <div class="col-10">
-            <div class="form-floating">
-              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea4" style="height: 200px"
-                disabled>{{respuesta2}}</textarea>
-              <label for="floatingTextarea4">Resultados</label>
-            </div>
-          </div>
-          <div class="col-2 d-grid gap-2">
-            <button type="button" class="btn btn-success" id="btn-run" (click)="ejecutarQuery(ejecucion)">Ejecutar</button>
-          </div>
-        </div>
+      </div>
+      <div class="col-2 d-grid gap-2">
+        <button type="button" class="btn btn-success" id="btn-run" (click)="ejecutarQuery(ejecucion)">Ejecutar</button>
+      </div>
+    </div>
+  </div>
 </div>
