@@ -13,11 +13,21 @@ import java.util.stream.IntStream;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.boot.autoconfigure.graphql.data.GraphQlReactiveQueryByExampleAutoConfiguration;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+class QueryInterface{
+	public String user;
+	public String password;
+	public String sql;
+}
 
 @RestController
 public class BD {
@@ -62,7 +72,7 @@ public class BD {
 	}
 
 	public String errorToJSON(Exception e) {
-		return "{\"Status\" : \"error\", \"error\" : \""+e+"\"}";
+		return "{\"Status\" : \"error\", \"ResultSet\" : \""+e+"\"}";
 	}
 	
 	public String SucessToJSON() {
@@ -73,18 +83,15 @@ public class BD {
 		return "{\"Status\" : \"Sucessfull\", \"ResultSet\":"+ ResultSetToJSON(resultSet) +"}";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@RequestParam  String user, @RequestParam  String password) {
+	
+	@CrossOrigin
+	@PostMapping(value="/login")
+	public String login(@RequestBody QueryInterface query) {
 		String rsString="";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver"); 
-			Connection con = DriverManager.getConnection(dbUrl(),user,password);
-			Statement  stmt = con.createStatement();
-			String sql;
-			sql = "show databases";
-			ResultSet rs = stmt.executeQuery(sql);
-			rsString=ResultSetToJSON(rs);
-			stmt.close();
+			DriverManager.getConnection(dbUrl(),query.user, query.password);
+			rsString=SucessToJSON();
 		} catch (Exception ex) {
 			String error=errorToJSON(ex);
 			System.out.println("Log: "+error);
@@ -94,15 +101,16 @@ public class BD {
 		return rsString;
 	}
 	
-	@RequestMapping(value="/execute", method=RequestMethod.POST)
-	public String execute(@RequestParam  String user, @RequestParam  String password, String sql) {
+	@CrossOrigin
+	@PostMapping(value="/execute")
+	public String execute(@RequestBody QueryInterface query) {
 		String rsString="";
 		try {
-			System.out.println("Log "+sql);
+			System.out.println("Log "+ query.sql);
 			Class.forName("com.mysql.cj.jdbc.Driver"); 
-			Connection con = DriverManager.getConnection(dbUrl(),user,password);
+			Connection con = DriverManager.getConnection(dbUrl(),query.user,query.password);
 			Statement  stmt = con.createStatement();
-			boolean result = stmt.execute(sql);
+			boolean result = stmt.execute(query.sql);
 			if (result) rsString = SucessToJSON(stmt.getResultSet());
 			else rsString = SucessToJSON();
 			stmt.close();

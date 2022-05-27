@@ -10,6 +10,8 @@ import { QuerysService } from 'src/app/services/querys.service';
 })
 export class LoginComponent implements OnInit {
   query!: QueryInterface;
+  basesDeDatos: any[] = [];
+  modelo: any = {user:'',password:'',sql:''};
 
   constructor(private querysService: QuerysService) { 
     this.query={
@@ -19,12 +21,20 @@ export class LoginComponent implements OnInit {
     };
 
     this.querysService.obtenerBd(this.query).subscribe(data => {
-      console.log(data)
+      let respuesta = data as any;
+      this.basesDeDatos = respuesta.ResultSet;
+      console.log(this.basesDeDatos);
+
     }
     );
   }
   ngOnInit(): void {
     
+  }
+  ejecutarQuery(baseDeDatos:any){
+    localStorage.setItem('baseDeDatos',JSON.stringify(baseDeDatos));
+    console.log(baseDeDatos);
+    location.href = 'http://localhost:4200/query';
   }
 
 }

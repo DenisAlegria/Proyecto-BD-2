@@ -2,17 +2,24 @@
   <div class="row p-5">
     <div class="col-12">
       <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-        <option selected>Seleccione la Base de Datos</option>
-        <option value="1">BD 1</option>
-        <option value="2">BD 2</option>
-        <option value="3">BD 3</option>
+        <option selected>TESTDB</option>
       </select>
+    </div>
+  </div>
+  <div class="row p-1">
+    <div class="col-12">
+      <input type="text" class="form-control form-control-lg" placeholder="Usuario" aria-label="Usuario" [(ngModel)]="modelo.user">
+    </div>
+  </div>
+  <div class="row p-1">
+    <div class="col-12">
+      <input type="password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Contraseña" [(ngModel)]="modelo.password">
     </div>
   </div>
   <div class="row ">
     <div class="col-12">
       <div class="d-grid gap-2 mb-5">
-        <button class="btn btn-success" type="button">Conectarse</button>
+        <button class="btn btn-success" type="button" (click)="ejecutarQuery(modelo)">Conectarse</button>
       </div>
     </div>
   </div>
