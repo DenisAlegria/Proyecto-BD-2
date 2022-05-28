@@ -110,8 +110,12 @@ public class BD {
 			System.out.println("Log: "+ex.getMessage());
 			return new Response("error",ex.getMessage(),null);
 		}
-		if (rs!=null)
+		if (rs!=null) {
 			System.out.println("Log: "+rs.toString());
-		return new Response("Sucessfull","",rs.toList());
+			return new Response("Sucessfull","",rs.toList());
+		}
+		else
+			return new Response("Sucessfull","",null);
+		
 	}
 }

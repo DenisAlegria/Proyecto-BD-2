@@ -11,30 +11,41 @@ import { QuerysService } from 'src/app/services/querys.service';
 export class LoginComponent implements OnInit {
   query!: QueryInterface;
   basesDeDatos: any[] = [];
-  modelo: any = {user:'',password:'',sql:''};
+  modelo: any = { user: '', password: '', sql: '' };
 
-  constructor(private querysService: QuerysService) { 
-    this.query={
+  constructor(private querysService: QuerysService) {
+    this.query = {
       user: 'admin',
       password: 'p9ai5bOGQGIckKRnRqA1',
-      sql: 'SHOW DATABASES;'
+      sql: ''
     };
 
-    this.querysService.obtenerBd(this.query).subscribe(data => {
-      let respuesta = data as any;
-      this.basesDeDatos = respuesta.ResultSet;
-      console.log(this.basesDeDatos);
 
-    }
-    );
   }
   ngOnInit(): void {
-    
+
   }
-  ejecutarQuery(baseDeDatos:any){
-    localStorage.setItem('baseDeDatos',JSON.stringify(baseDeDatos));
-    console.log(baseDeDatos);
-    location.href = 'http://localhost:4200/query';
+  ejecutarQuery(modelo: any) {
+
+      this.querysService.obtenerBd(this.modelo).subscribe(data => {
+        let respuesta = data as any;
+        this.basesDeDatos = respuesta.ResultSet;
+        console.log(this.basesDeDatos);
+
+
+        localStorage.setItem('baseDeDatos', JSON.stringify(modelo));
+        console.log(modelo);
+        location.href = 'http://localhost:4200/query';
+      }
+      );
+   
+     /* alert('Usuario o contraseña incorrectos');
+      this.modelo.user = '';
+      this.modelo.password = '';
+*/
+   
+
+
   }
 
 }

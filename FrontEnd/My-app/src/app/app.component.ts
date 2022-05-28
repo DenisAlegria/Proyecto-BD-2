@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'My-app';
+  salir: boolean = false;
+  constructor() { 
+  }
+  logOut(){
+    localStorage.clear();
+    this.salir = false;
+    location.href = '/';
+  }
 }
