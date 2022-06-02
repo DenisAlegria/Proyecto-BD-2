@@ -74,7 +74,7 @@ public class BD {
 	
 	public String dbUrl() {
 
-		return "jdbc:mysql://proy-final-bd2.c4pj0q0xq7tj.us-east-1.rds.amazonaws.com:3306/testdb?allowMultiQueries=true";
+		return "jdbc:mysql://database-1.c4pj0q0xq7tj.us-east-1.rds.amazonaws.com:3306/testdb?allowMultiQueries=true";
 	}
 
 	@CrossOrigin

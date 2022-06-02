@@ -25,9 +25,9 @@ export class QuerysComponent implements OnInit {
 
   constructor(private querysService: QuerysService, private salir: AppComponent) {
     this.baseDeDatos = JSON.parse(localStorage.getItem('baseDeDatos') || '{}');
-    this.ejecucion = { 'user': 'admin', 'password': 'p9ai5bOGQGIckKRnRqA1', 'sql': '' };
+    this.ejecucion = { 'user': 'admin', 'password': 'abc12345', 'sql': '' };
     console.log(this.baseDeDatos);
-    if (this.baseDeDatos.password == 'p9ai5bOGQGIckKRnRqA1') {
+    if (this.baseDeDatos.password == "abc12345") {
       this.salir.salir = true;
       console.log(this.baseDeDatos);
     } else {
